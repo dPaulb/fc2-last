@@ -85,7 +85,7 @@ app.use('/v1/users', users);
 app.use('/v1/posts', posts);
 app.use('/v1/accounts', accounts);
 app.use('/v1/auth', auth);
-app.use('/v1/chat', chat);
+app.use('/chat', chat);
 
 app.get('*', function(req,res){
   res.sendFile(path.resolve(__dirname, 'public', 'index.html'));

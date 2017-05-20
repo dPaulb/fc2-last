@@ -1,11 +1,52 @@
-import React, { Component } from 'react';
-import { Navbar , Nav , NavItem , MenuItem ,NavDropdown} from 'react-bootstrap';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { Navbar , Nav , NavItem , MenuItem ,NavDropdown} from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-
-class Header extends Component {
-    render() {
-        return (
+import axios from 'axios';
+ 
+class Header extends React.Component {
+    
+    constructor(){
+        super();
+        this.state = { 
+            isLogin : false
+        };
+        
+    }
+    
+    componentDidMount(){
+        axios.get('/v1/accounts/status', {
+        }).then( (res) => {
+            this.setState({
+                isLogin: res.data.isLogin
+            });
+        }).catch( (error) => {
+            console.log(error);
+        });
+    }
+    render(){
+        const Login = () => {
+            return (
+                <LinkContainer to="/accounts/login">
+                    <NavItem>LOGIN</NavItem>
+                </LinkContainer>
+            );
+        };
+        const Join = () => {
+            return (
+                <LinkContainer to="/accounts/join">
+                    <NavItem>JOIN</NavItem>
+                </LinkContainer>
+            );
+        };
+        const Logout = () => {
+            return (
+                <li>
+                    <a href="/v1/accounts/logout">LOGOUT</a>
+                </li>
+            );
+        };
+        return(
             <Navbar inverse collapseOnSelect>
                 <Navbar.Header>
                     <Navbar.Brand>
@@ -21,17 +62,17 @@ class Header extends Component {
                         <LinkContainer to="/posts">
                             <NavItem>Posts</NavItem>
                         </LinkContainer>
-                        <LinkContainer to="/accounts/join">
-                            <NavItem>Join</NavItem>
-                        </LinkContainer>
-                        <LinkContainer to="/accounts/login">
-                            <NavItem>Login</NavItem>
-                        </LinkContainer>
-                        <NavItem>Chat</NavItem>
+                        <li><a href="/chat">Chat</a></li>
+                        {this.state.isLogin ? 
+                            <Logout /> : <Join />
+                        }
+                        { this.state.isLogin ? "" : <Login /> }
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-        );
+            
+        );  
     }
 }
+ 
 export default Header;
