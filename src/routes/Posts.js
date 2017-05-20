@@ -10,6 +10,7 @@ class Posts extends Component {
         this.state = { 
             posts : []
         };
+        this.removePost = this.removePost.bind(this);
     }
 
     componentDidMount(){
@@ -24,6 +25,13 @@ class Posts extends Component {
         }).catch( (error) => {
             console.log(error);
         });
+    }
+
+    removePost(event){
+        event.preventDefault();
+        if(confirm('삭제하시겠습니까?')){
+            document.location.href = event.target.href;
+        }
     }
 
     render() {
@@ -52,7 +60,9 @@ class Posts extends Component {
                                         { created_at.month } -
                                         { created_at.day }
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        <a href={`/v1/posts/delete/${post.id}`} className="btn btn-danger" onClick={ this.removePost }>삭제</a>
+                                    </td>
                                 </tr>
                             )   
                         })}
