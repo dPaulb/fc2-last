@@ -6,6 +6,7 @@ import Login from '../routes/Login';
 import { BrowserRouter as Router , Route, Switch } from 'react-router-dom';
 import NotMatch from './NotMatch';
 import Header from './Header';
+import Form from './Form';
 
 class App extends Component {
     render() {
@@ -18,6 +19,7 @@ class App extends Component {
                         <Route path="/posts" component={Posts} />
                         <Route path="/accounts/join" component={Join} />
                         <Route path="/accounts/login" component={Login} />
+                        <Route path="/write" component={Form} />
                         <Route component={NotMatch} />
                     </Switch>
                 </div>

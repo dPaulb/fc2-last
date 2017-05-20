@@ -68,6 +68,7 @@ class Posts extends Component {
                         })}
                     </tbody>
                 </table>
+                <Link to="/write" className="btn btn-primary">작성하기</Link>
                 <Route path="/posts/:id" component={PostDetail} />
             </div>
         );
